@@ -6,9 +6,9 @@
 </head>
 <body>
 <!--<h4>Пузырьковая сортировка (результаты прогонов в консоли)</h4>-->
+<!--<pre style="display: block">-->
 <!--<code>-->
-<!--  <pre>-->
-<!--    const bubbleSort = (arr) => {-->
+<!--  const bubbleSort = (arr) => {-->
 <!--    let maxIndex = arr.length;-->
 <!--    while (maxIndex > 0) {-->
 <!--      for (let i = 1; i < maxIndex; i++) {-->
@@ -22,65 +22,91 @@
 <!--    }-->
 <!--    return arr;-->
 <!--  }-->
-<!--  </pre>-->
 <!--</code>-->
+<!--</pre>-->
+
 
 <!--<h4>Сортировка 2 (результаты прогонов в консоли)</h4>-->
-<!--<code>-->
-<!--  <pre>-->
-<!--    const maxNumSort = (arr) => {-->
-<!--      let maxIndex = arr.length;-->
-<!--      while (maxIndex > 0) {-->
-<!--        let maxNum = arr[0];-->
-<!--        let maxNumIndex = 0;-->
+<!--<pre>-->
+<!--<code style="display: block">-->
+<!--  const maxNumSort = (arr) => {-->
+<!--    let maxIndex = arr.length;-->
+<!--    while (maxIndex > 0) {-->
+<!--      let maxNum = arr[0];-->
+<!--      let maxNumIndex = 0;-->
 
-<!--        for (let i = 1; i < maxIndex; i++) {-->
-<!--          if (arr[i] > maxNum) {-->
-<!--            maxNum = arr[i];-->
-<!--            maxNumIndex = i;-->
-<!--          }-->
+<!--      for (let i = 1; i < maxIndex; i++) {-->
+<!--        if (arr[i] > maxNum) {-->
+<!--          maxNum = arr[i];-->
+<!--          maxNumIndex = i;-->
 <!--        }-->
-
-<!--        arr[maxNumIndex] = arr[maxIndex - 1];-->
-<!--        arr[maxIndex - 1] = maxNum;-->
-
-<!--        maxIndex&#45;&#45;;-->
 <!--      }-->
-<!--      return arr;-->
+
+<!--      arr[maxNumIndex] = arr[maxIndex - 1];-->
+<!--      arr[maxIndex - 1] = maxNum;-->
+
+<!--      maxIndex&#45;&#45;;-->
 <!--    }-->
-<!--  </pre>-->
+<!--    return arr;-->
+<!--  }-->
 <!--</code>-->
+<!--</pre>-->
 
-<h4>Сортировка вставкой (результаты прогона в консоли)</h4>
-<code>
-  <pre>
-    const sortByInsert = (arr) => {
-      let sortedPartSize = 1;
 
-      while (sortedPartSize < arr.length) {
-        let currNumber = arr[sortedPartSize];
+<!--<h4>Сортировка вставкой (результаты прогона в консоли)</h4>-->
+<!--<pre>-->
+<!--<code style="display: block">-->
+<!--  const sortByInsert = (arr) => {-->
+<!--    let sortedPartSize = 1;-->
 
-        for (let i = sortedPartSize - 1; i > -1; i--) {
-          if (arr[i] > currNumber) {
-            arr[i + 1] = arr[i];
-          } else {
-            arr[i + 1] = currNumber;
-            //mark current number as already inserted
-            currNumber = null;
-            break;
-          }
-        }
-        // if we haven't found a place for current number, it's the smallest, insert at 0
-        if (currNumber) {
-          arr[0] = currNumber;
-        }
+<!--    while (sortedPartSize < arr.length) {-->
+<!--      let currNumber = arr[sortedPartSize];-->
 
-        sortedPartSize++;
+<!--      for (let i = sortedPartSize - 1; i > -1; i&#45;&#45;) {-->
+<!--        if (arr[i] > currNumber) {-->
+<!--          arr[i + 1] = arr[i];-->
+<!--        } else {-->
+<!--          arr[i + 1] = currNumber;-->
+<!--          //mark current number as already inserted-->
+<!--          currNumber = null;-->
+<!--          break;-->
+<!--        }-->
+<!--      }-->
+<!--      // if we haven't found a place for current number, it's the smallest, insert at 0-->
+<!--      if (currNumber) {-->
+<!--        arr[0] = currNumber;-->
+<!--      }-->
+
+<!--      sortedPartSize++;-->
+<!--    }-->
+<!--    return arr;-->
+<!--  }-->
+<!--</code>-->
+<!--</pre>-->
+
+<h4>Обход дерева в глубину (результаты прогонов в консоли)</h4>
+<pre>
+<code style="display: block">
+const traverseTree = (tree) => {
+  const values = [];
+  let stack = [tree];
+
+  while(stack.length) {
+    const workingNode = stack[stack.length - 1];
+    values.push(workingNode.value);
+    stack.pop();
+
+    if (workingNode.next !== null && Array.isArray(workingNode.next)) {
+      for (let i = workingNode.next.length - 1; i > -1; i--) {
+        stack.push(workingNode.next[i]);
       }
-      return arr;
     }
-  </pre>
+  }
+
+  return values;
+}
 </code>
+</pre>
 
 <script>
   const bubbleSort = (arr) => {
@@ -145,22 +171,128 @@
     return arr;
   }
 
-  console.log([5,3,1,8,7]);
-  console.log(sortByInsert([5,3,1,8,7]));
-  console.log([-5,3,2,4235,7]);
-  console.log(sortByInsert([-5,3,2,4235,7]));
-  console.log([5,3]);
-  console.log(sortByInsert([5,3]));
-  console.log([6]);
-  console.log(sortByInsert([6]));
-  console.log([5,546567,53453,-54354,4645,0,-543,75,4,99,-25]);
-  console.log(sortByInsert([5,546567,53453,-54354,4645,0,-543,75,4,99,-25]));
-  console.log([]);
-  console.log(sortByInsert([]));
-  console.log([543,57,-56,0,3434,12,5555]);
-  console.log(sortByInsert([543,57,-56,0,344,12,5555]));
-  console.log([-66, 4, 2,534,76,43,2,7]);
-  console.log(sortByInsert([-66, 4, 2,534,76,43,2,7]));
+  const traverseTree = (tree) => {
+    const values = [];
+    let stack = [tree];
+
+    while(stack.length) {
+      const workingNode = stack[stack.length - 1];
+      values.push(workingNode.value);
+      stack.pop();
+
+      if (workingNode.next !== null && Array.isArray(workingNode.next)) {
+        for (let i = workingNode.next.length - 1; i > -1; i--) {
+          stack.push(workingNode.next[i]);
+        }
+      }
+    }
+
+    return values;
+  }
+
+  const obj = {
+    value: 1,
+    next: [
+      {
+        value: 2,
+        next: [
+          {
+            value: 3,
+            next: [
+              {
+                value: 4,
+                next: null
+              },
+              {
+                value: 5,
+                next: null,
+              },
+              {
+                value: 6,
+                next: null
+              }
+            ]
+          },
+          {
+            value: 7,
+            next: [
+              {
+                value: 8,
+                next: null
+              },
+              {
+                value: 9,
+                next: [
+                  {
+                    value: 10,
+                    next: null
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        value: 11,
+        next: [
+          {
+            value: 12,
+            next: null
+          }
+        ]
+      }
+    ]
+  }
+
+  const obj2 = {
+    value: 1,
+    next: [
+      {
+        value: 2,
+        next: [
+          {
+            value: 3,
+            next: [
+              {
+                value: 4,
+                next: null
+              },
+              {
+                value: 5,
+                next: null
+              }
+            ]
+          }
+        ]
+      },
+      {
+        value: 6,
+        next: [
+          {
+            value: 7,
+            next: null
+          }
+        ]
+      },
+      {
+        value: 8,
+        next: null
+      }
+    ]
+  }
+
+  const emptyObj = {
+    value: 1,
+    next: null
+  }
+
+  console.log(obj);
+  console.log(traverseTree(obj));
+  console.log(obj2);
+  console.log(traverseTree(obj2));
+  console.log(emptyObj);
+  console.log(traverseTree(emptyObj));
 </script>
 </body>
 </html>
