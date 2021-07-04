@@ -108,25 +108,57 @@
 <!--</code>-->
 <!--</pre>-->
 
-<h4>Обход дерева в ширину (результаты прогонов в консоли)</h4>
+<!--<h4>Обход дерева в ширину (результаты прогонов в консоли)</h4>-->
+<!--<pre>-->
+<!--<code style="display: block">-->
+<!--const traverseTreeWidth = (tree) => {-->
+<!--  const values = [];-->
+<!--  let queue = [tree];-->
+
+<!--  while(queue.length) {-->
+<!--    const workingNode = queue.shift();-->
+<!--    values.push(workingNode.value);-->
+
+<!--    if (workingNode.next !== null && Array.isArray(workingNode.next)) {-->
+<!--      for (const child of workingNode.next) {-->
+<!--        queue.push(child);-->
+<!--      }-->
+<!--    }-->
+<!--  }-->
+
+<!--  return values;-->
+<!--}-->
+<!--</code>-->
+<!--</pre>-->
+
+<h4>Проверка скобок на валидность (результаты прогонов в консоли)</h4>
 <pre>
 <code style="display: block">
-const traverseTreeWidth = (tree) => {
-  const values = [];
-  let queue = [tree];
+const checkParens = (expression) => {
+  const parenArray = expression.split('');
+  const stack = [];
 
-  while(queue.length) {
-    const workingNode = queue.shift();
-    values.push(workingNode.value);
+  const openingParens = ['(', '{', '['];
+  const round = ['(', ')'];
+  const square = ['[', ']'];
+  const curly = ['{', '}'];
 
-    if (workingNode.next !== null && Array.isArray(workingNode.next)) {
-      for (const child of workingNode.next) {
-        queue.push(child);
+  for (const paren of parenArray) {
+    if (openingParens.includes(paren)) {
+      stack.push(paren);
+    } else if (!stack.length) {
+      return false;
+    } else {
+      const lastParen = stack.pop();
+      if (!(round.includes(paren) && round.includes(lastParen))
+        && !(square.includes(paren) && square.includes(lastParen))
+        && !(curly.includes(paren) && curly.includes(lastParen))) {
+        return false;
       }
     }
   }
 
-  return values;
+  return !stack.length;
 }
 </code>
 </pre>
@@ -230,109 +262,49 @@ const traverseTreeWidth = (tree) => {
     return values;
   }
 
-  const obj = {
-    value: 1,
-    next: [
-      {
-        value: 2,
-        next: [
-          {
-            value: 3,
-            next: [
-              {
-                value: 4,
-                next: null
-              },
-              {
-                value: 5,
-                next: null,
-              },
-              {
-                value: 6,
-                next: null
-              }
-            ]
-          },
-          {
-            value: 7,
-            next: [
-              {
-                value: 8,
-                next: null
-              },
-              {
-                value: 9,
-                next: [
-                  {
-                    value: 10,
-                    next: null
-                  }
-                ]
-              }
-            ]
-          }
-        ]
-      },
-      {
-        value: 11,
-        next: [
-          {
-            value: 12,
-            next: null
-          }
-        ]
+  const checkParens = (expression) => {
+    const parenArray = expression.split('');
+    const stack = [];
+
+    const openingParens = ['(', '{', '['];
+    const round = ['(', ')'];
+    const square = ['[', ']'];
+    const curly = ['{', '}'];
+
+    for (const paren of parenArray) {
+      if (openingParens.includes(paren)) {
+        stack.push(paren);
+      } else if (!stack.length) {
+        return false;
+      } else {
+        const lastParen = stack.pop();
+        if (!(round.includes(paren) && round.includes(lastParen))
+          && !(square.includes(paren) && square.includes(lastParen))
+          && !(curly.includes(paren) && curly.includes(lastParen))) {
+          return false;
+        }
       }
-    ]
+    }
+
+    return !stack.length;
   }
 
-  const obj2 = {
-    value: 1,
-    next: [
-      {
-        value: 2,
-        next: [
-          {
-            value: 3,
-            next: [
-              {
-                value: 4,
-                next: null
-              },
-              {
-                value: 5,
-                next: null
-              }
-            ]
-          }
-        ]
-      },
-      {
-        value: 6,
-        next: [
-          {
-            value: 7,
-            next: null
-          }
-        ]
-      },
-      {
-        value: 8,
-        next: null
-      }
-    ]
-  }
-
-  const emptyObj = {
-    value: 1,
-    next: null
-  }
-
-  console.log(obj);
-  console.log(traverseTreeWidth(obj));
-  console.log(obj2);
-  console.log(traverseTreeWidth(obj2));
-  console.log(emptyObj);
-  console.log(traverseTreeWidth(emptyObj));
+  console.log('()');
+  console.log(checkParens('()'));
+  console.log('[()]');
+  console.log(checkParens('[()]'));
+  console.log('[()]{}()[{({})}]');
+  console.log(checkParens('[()]{}()[{({})}]'));
+  console.log(')(){}[{}]');
+  console.log(checkParens(')(){}[{}]'));
+  console.log('()}');
+  console.log(checkParens('()}'));
+  console.log('(}{[]}');
+  console.log(checkParens('(}{[]}'));
+  console.log('()[{{()()[]}}]');
+  console.log(checkParens('()[{{()()[]}}]'));
+  console.log('()[{{()()[]}}]]');
+  console.log(checkParens('()[{{()()[]}}]]'));
 </script>
 </body>
 </html>
