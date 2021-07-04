@@ -131,33 +131,60 @@
 <!--</code>-->
 <!--</pre>-->
 
-<h4>Проверка скобок на валидность (результаты прогонов в консоли)</h4>
+<!--<h4>Проверка скобок на валидность (результаты прогонов в консоли)</h4>-->
+<!--<pre>-->
+<!--<code style="display: block">-->
+<!--  const checkParens = (expression) => {-->
+<!--    const parenArray = expression.split('');-->
+<!--    const stack = [];-->
+
+<!--    const openingParens = ['(', '{', '['];-->
+<!--    const round = ['(', ')'];-->
+<!--    const square = ['[', ']'];-->
+<!--    const curly = ['{', '}'];-->
+
+<!--    for (const paren of parenArray) {-->
+<!--      if (openingParens.includes(paren)) {-->
+<!--        stack.push(paren);-->
+<!--      } else {-->
+<!--        const lastParen = stack.pop();-->
+<!--        if (!(round.includes(paren) && round.includes(lastParen))-->
+<!--          && !(square.includes(paren) && square.includes(lastParen))-->
+<!--          && !(curly.includes(paren) && curly.includes(lastParen))) {-->
+<!--          return false;-->
+<!--        }-->
+<!--      }-->
+<!--    }-->
+
+<!--    return !stack.length;-->
+<!--  }-->
+<!--</code>-->
+<!--</pre>-->
+
+<h4>Вывод всех простых чисел меньше N</h4>
 <pre>
 <code style="display: block">
-const checkParens = (expression) => {
-  const parenArray = expression.split('');
-  const stack = [];
+  const primesUnderLimit = (limit) => {
+    if (limit < 2) return null;
 
-  const openingParens = ['(', '{', '['];
-  const round = ['(', ')'];
-  const square = ['[', ']'];
-  const curly = ['{', '}'];
+    const primes = [2];
+    for (let i = 2; i <= limit; i++) {
+      let isPrime = true;
 
-  for (const paren of parenArray) {
-    if (openingParens.includes(paren)) {
-      stack.push(paren);
-    } else {
-      const lastParen = stack.pop();
-      if (!(round.includes(paren) && round.includes(lastParen))
-        && !(square.includes(paren) && square.includes(lastParen))
-        && !(curly.includes(paren) && curly.includes(lastParen))) {
-        return false;
+      for (const prime of primes) {
+        if (i % prime === 0) {
+          isPrime = false;
+          break;
+        }
+      }
+
+      if (isPrime) {
+        primes.push(i);
       }
     }
-  }
 
-  return !stack.length;
-}
+    return primes;
+  }
 </code>
 </pre>
 
@@ -285,22 +312,34 @@ const checkParens = (expression) => {
     return !stack.length;
   }
 
-  console.log('()');
-  console.log(checkParens('()'));
-  console.log('[()]');
-  console.log(checkParens('[()]'));
-  console.log('[()]{}()[{({})}]');
-  console.log(checkParens('[()]{}()[{({})}]'));
-  console.log(')(){}[{}]');
-  console.log(checkParens(')(){}[{}]'));
-  console.log('()}');
-  console.log(checkParens('()}'));
-  console.log('(}{[]}');
-  console.log(checkParens('(}{[]}'));
-  console.log('()[{{()()[]}}]');
-  console.log(checkParens('()[{{()()[]}}]'));
-  console.log('()[{{()()[]}}]]');
-  console.log(checkParens('()[{{()()[]}}]]'));
+  const primesUnderLimit = (limit) => {
+    if (limit < 2) return null;
+
+    const primes = [2];
+    for (let i = 2; i <= limit; i++) {
+      let isPrime = true;
+
+      for (const prime of primes) {
+        if (i % prime === 0) {
+          isPrime = false;
+          break;
+        }
+      }
+
+      if (isPrime) {
+        primes.push(i);
+      }
+    }
+
+    return primes;
+  }
+
+  console.log(primesUnderLimit(0));
+  console.log(primesUnderLimit(2));
+  console.log(primesUnderLimit(10));
+  console.log(primesUnderLimit(13));
+  console.log(primesUnderLimit(113));
+  console.log(primesUnderLimit(10000));
 </script>
 </body>
 </html>
