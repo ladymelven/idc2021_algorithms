@@ -5,7 +5,27 @@
   <title>Algorithms and data structures</title>
 </head>
 <body>
-<h4>Пузырьковая сортировка (результаты прогонов в консоли)</h4>
+<!--<h4>Пузырьковая сортировка (результаты прогонов в консоли)</h4>-->
+<!--<code>-->
+<!--  <pre>-->
+<!--    const bubbleSort = (arr) => {-->
+<!--    let maxIndex = arr.length;-->
+<!--    while (maxIndex > 0) {-->
+<!--      for (let i = 1; i < maxIndex; i++) {-->
+<!--        if (arr[i] < arr[i - 1]) {-->
+<!--          const bigger = arr[i - 1];-->
+<!--          arr[i - 1] = arr[i];-->
+<!--          arr[i] = bigger;-->
+<!--        }-->
+<!--      }-->
+<!--      maxIndex&#45;&#45;;-->
+<!--    }-->
+<!--    return arr;-->
+<!--  }-->
+<!--  </pre>-->
+<!--</code>-->
+
+<h4>Сортировка 2 (результаты прогонов в консоли)</h4>
 <code>
   <pre>
     const bubbleSort = (arr) => {
@@ -40,18 +60,39 @@
     return arr;
   }
 
+  const maxNumSort = (arr) => {
+    let maxIndex = arr.length;
+    while (maxIndex > 0) {
+      let maxNum = arr[0];
+      let maxNumIndex = 0;
+
+      for (let i = 1; i < maxIndex; i++) {
+        if (arr[i] > maxNum) {
+          maxNum = arr[i];
+          maxNumIndex = i;
+        }
+      }
+
+      arr[maxNumIndex] = arr[maxIndex - 1];
+      arr[maxIndex - 1] = maxNum;
+
+      maxIndex--;
+    }
+    return arr;
+  }
+
   console.log([5,3,1,8,7]);
-  console.log(bubbleSort([5,3,1,8,7]));
+  console.log(maxNumSort([5,3,1,8,7]));
   console.log([-5,3,2,4235,7]);
-  console.log(bubbleSort([-5,3,2,4235,7]));
+  console.log(maxNumSort([-5,3,2,4235,7]));
   console.log([5,3]);
-  console.log(bubbleSort([5,3]));
+  console.log(maxNumSort([5,3]));
   console.log([6]);
-  console.log(bubbleSort([6]));
+  console.log(maxNumSort([6]));
   console.log([5,546567,53453,-54354,4645,0,-543,75,4,99,-25]);
-  console.log(bubbleSort([5,546567,53453,-54354,4645,0,-543,75,4,99,-25]));
+  console.log(maxNumSort([5,546567,53453,-54354,4645,0,-543,75,4,99,-25]));
   console.log([]);
-  console.log(bubbleSort([]));
+  console.log(maxNumSort([]));
 </script>
 </body>
 </html>
