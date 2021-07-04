@@ -5,10 +5,53 @@
   <title>Algorithms and data structures</title>
 </head>
 <body>
-  <ul>
-    <li>
-      <a href="task-1.html"></a>
-    </li>
-  </ul>
+<h4>Пузырьковая сортировка (результаты прогонов в консоли)</h4>
+<code>
+  <pre>
+    const bubbleSort = (arr) => {
+    let maxIndex = arr.length;
+    while (maxIndex > 0) {
+      for (let i = 1; i < maxIndex; i++) {
+        if (arr[i] < arr[i - 1]) {
+          const bigger = arr[i - 1];
+          arr[i - 1] = arr[i];
+          arr[i] = bigger;
+        }
+      }
+      maxIndex--;
+    }
+    return arr;
+  }
+  </pre>
+</code>
+<script>
+  const bubbleSort = (arr) => {
+    let maxIndex = arr.length;
+    while (maxIndex > 0) {
+      for (let i = 1; i < maxIndex; i++) {
+        if (arr[i] < arr[i - 1]) {
+          const bigger = arr[i - 1];
+          arr[i - 1] = arr[i];
+          arr[i] = bigger;
+        }
+      }
+      maxIndex--;
+    }
+    return arr;
+  }
+
+  console.log([5,3,1,8,7]);
+  console.log(bubbleSort([5,3,1,8,7]));
+  console.log([-5,3,2,4235,7]);
+  console.log(bubbleSort([-5,3,2,4235,7]));
+  console.log([5,3]);
+  console.log(bubbleSort([5,3]));
+  console.log([6]);
+  console.log(bubbleSort([6]));
+  console.log([5,546567,53453,-54354,4645,0,-543,75,4,99,-25]);
+  console.log(bubbleSort([5,546567,53453,-54354,4645,0,-543,75,4,99,-25]));
+  console.log([]);
+  console.log(bubbleSort([]));
+</script>
 </body>
 </html>
