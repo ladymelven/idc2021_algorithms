@@ -146,8 +146,6 @@ const checkParens = (expression) => {
   for (const paren of parenArray) {
     if (openingParens.includes(paren)) {
       stack.push(paren);
-    } else if (!stack.length) {
-      return false;
     } else {
       const lastParen = stack.pop();
       if (!(round.includes(paren) && round.includes(lastParen))
@@ -274,8 +272,6 @@ const checkParens = (expression) => {
     for (const paren of parenArray) {
       if (openingParens.includes(paren)) {
         stack.push(paren);
-      } else if (!stack.length) {
-        return false;
       } else {
         const lastParen = stack.pop();
         if (!(round.includes(paren) && round.includes(lastParen))
