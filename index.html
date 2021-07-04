@@ -28,20 +28,26 @@
 <h4>Сортировка 2 (результаты прогонов в консоли)</h4>
 <code>
   <pre>
-    const bubbleSort = (arr) => {
-    let maxIndex = arr.length;
-    while (maxIndex > 0) {
-      for (let i = 1; i < maxIndex; i++) {
-        if (arr[i] < arr[i - 1]) {
-          const bigger = arr[i - 1];
-          arr[i - 1] = arr[i];
-          arr[i] = bigger;
+    const maxNumSort = (arr) => {
+      let maxIndex = arr.length;
+      while (maxIndex > 0) {
+        let maxNum = arr[0];
+        let maxNumIndex = 0;
+
+        for (let i = 1; i < maxIndex; i++) {
+          if (arr[i] > maxNum) {
+            maxNum = arr[i];
+            maxNumIndex = i;
+          }
         }
+
+        arr[maxNumIndex] = arr[maxIndex - 1];
+        arr[maxIndex - 1] = maxNum;
+
+        maxIndex--;
       }
-      maxIndex--;
+      return arr;
     }
-    return arr;
-  }
   </pre>
 </code>
 <script>
