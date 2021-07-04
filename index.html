@@ -188,6 +188,34 @@
 </code>
 </pre>
 
+<h4>Бинарный поиск</h4>
+<pre>
+<code style="display: block">
+  const binarySearch = (arr, number) => {
+    if (!arr.length || number < arr[0] || number > arr[arr.length - 1]) {
+      return null;
+    }
+
+    let left = 0;
+    let right = arr.length - 1;
+
+    while (left <= right) {
+      const median = (left + right) / 2;
+
+      if (arr[Math.ceil(median)] > number) {
+        right = Math.floor(median);
+      } else if (arr[Math.floor(median)] < number) {
+        left = Math.ceil(median);
+      } else if (arr[Math.ceil(median)] === number) {
+        return Math.ceil(median);
+      } else if (arr[Math.floor(median)] === number) {
+        return Math.floor(median);
+      }
+    }
+  }
+</code>
+</pre>
+
 <script>
   const bubbleSort = (arr) => {
     let maxIndex = arr.length;
@@ -334,12 +362,34 @@
     return primes;
   }
 
-  console.log(primesUnderLimit(0));
-  console.log(primesUnderLimit(2));
-  console.log(primesUnderLimit(10));
-  console.log(primesUnderLimit(13));
-  console.log(primesUnderLimit(113));
-  console.log(primesUnderLimit(10000));
+  const binarySearch = (arr, number) => {
+    if (!arr.length || number < arr[0] || number > arr[arr.length - 1]) {
+      return null;
+    }
+
+    let left = 0;
+    let right = arr.length - 1;
+
+    while (left <= right) {
+      const median = (left + right) / 2;
+
+      if (arr[Math.ceil(median)] > number) {
+        right = Math.floor(median);
+      } else if (arr[Math.floor(median)] < number) {
+        left = Math.ceil(median);
+      } else if (arr[Math.ceil(median)] === number) {
+        return Math.ceil(median);
+      } else if (arr[Math.floor(median)] === number) {
+        return Math.floor(median);
+      }
+    }
+  }
+
+  console.log([1,2,5,7,8,12,17,22,34,45,78]);
+  console.log(binarySearch([1,2,5,7,8,12,17,22,34,45,78], 5));
+  console.log(binarySearch([1,2,5,7,8,12,17,22,34,45,78], 34));
+  console.log(binarySearch([1,2,5,7,8,12,17,22,34,45,78], 1));
+  console.log(binarySearch([1,2,5,7,8,12,17,22,34,45,78], 78));
 </script>
 </body>
 </html>
