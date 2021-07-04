@@ -25,31 +25,66 @@
 <!--  </pre>-->
 <!--</code>-->
 
-<h4>Сортировка 2 (результаты прогонов в консоли)</h4>
+<!--<h4>Сортировка 2 (результаты прогонов в консоли)</h4>-->
+<!--<code>-->
+<!--  <pre>-->
+<!--    const maxNumSort = (arr) => {-->
+<!--      let maxIndex = arr.length;-->
+<!--      while (maxIndex > 0) {-->
+<!--        let maxNum = arr[0];-->
+<!--        let maxNumIndex = 0;-->
+
+<!--        for (let i = 1; i < maxIndex; i++) {-->
+<!--          if (arr[i] > maxNum) {-->
+<!--            maxNum = arr[i];-->
+<!--            maxNumIndex = i;-->
+<!--          }-->
+<!--        }-->
+
+<!--        arr[maxNumIndex] = arr[maxIndex - 1];-->
+<!--        arr[maxIndex - 1] = maxNum;-->
+
+<!--        maxIndex&#45;&#45;;-->
+<!--      }-->
+<!--      return arr;-->
+<!--    }-->
+<!--  </pre>-->
+<!--</code>-->
+
+<h4>Сортировка вставкой (результаты прогона в консоли)</h4>
 <code>
   <pre>
-    const maxNumSort = (arr) => {
-      let maxIndex = arr.length;
-      while (maxIndex > 0) {
-        let maxNum = arr[0];
-        let maxNumIndex = 0;
+    const sortByInsert = (arr) => {
+      let sortedPartSize = 1;
 
-        for (let i = 1; i < maxIndex; i++) {
-          if (arr[i] > maxNum) {
-            maxNum = arr[i];
-            maxNumIndex = i;
+      while (sortedPartSize < arr.length) {
+        let currNumber = arr[sortedPartSize];
+
+        //only do the inserts if current number is not bigger than last in sorted part
+        if (currNumber < arr[sortedPartSize - 1]) {
+          for (let i = sortedPartSize - 1; i > -1; i--) {
+            if (arr[i] > currNumber) {
+              arr[i + 1] = arr[i];
+            } else {
+              arr[i + 1] = currNumber;
+              //mark current number as already inserted
+              currNumber = null;
+              break;
+            }
+          }
+          // if we haven't found a place for current number, it's the smallest, insert at 0
+          if (currNumber) {
+            arr[0] = currNumber;
           }
         }
 
-        arr[maxNumIndex] = arr[maxIndex - 1];
-        arr[maxIndex - 1] = maxNum;
-
-        maxIndex--;
+        sortedPartSize++;
       }
       return arr;
     }
   </pre>
 </code>
+
 <script>
   const bubbleSort = (arr) => {
     let maxIndex = arr.length;
@@ -87,18 +122,50 @@
     return arr;
   }
 
+  const sortByInsert = (arr) => {
+    let sortedPartSize = 1;
+
+    while (sortedPartSize < arr.length) {
+      let currNumber = arr[sortedPartSize];
+
+      //only do the inserts if current number is not bigger than last in sorted part
+      if (currNumber < arr[sortedPartSize - 1]) {
+        for (let i = sortedPartSize - 1; i > -1; i--) {
+          if (arr[i] > currNumber) {
+            arr[i + 1] = arr[i];
+          } else {
+            arr[i + 1] = currNumber;
+            //mark current number as already inserted
+            currNumber = null;
+            break;
+          }
+        }
+        // if we haven't found a place for current number, it's the smallest, insert at 0
+        if (currNumber) {
+          arr[0] = currNumber;
+        }
+      }
+
+      sortedPartSize++;
+    }
+    return arr;
+  }
+
   console.log([5,3,1,8,7]);
-  console.log(maxNumSort([5,3,1,8,7]));
+  console.log(sortByInsert([5,3,1,8,7]));
   console.log([-5,3,2,4235,7]);
-  console.log(maxNumSort([-5,3,2,4235,7]));
+  console.log(sortByInsert([-5,3,2,4235,7]));
   console.log([5,3]);
-  console.log(maxNumSort([5,3]));
+  console.log(sortByInsert([5,3]));
   console.log([6]);
-  console.log(maxNumSort([6]));
+  console.log(sortByInsert([6]));
   console.log([5,546567,53453,-54354,4645,0,-543,75,4,99,-25]);
-  console.log(maxNumSort([5,546567,53453,-54354,4645,0,-543,75,4,99,-25]));
+  console.log(sortByInsert([5,546567,53453,-54354,4645,0,-543,75,4,99,-25]));
   console.log([]);
-  console.log(maxNumSort([]));
+  console.log(sortByInsert([]));
+  console.log([543,57,-56,0,3434,12,5555]);
+  console.log(sortByInsert([543,57,-56,0,344,12,5555]));
+
 </script>
 </body>
 </html>
