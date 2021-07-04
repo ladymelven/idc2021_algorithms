@@ -84,21 +84,44 @@
 <!--</code>-->
 <!--</pre>-->
 
-<h4>Обход дерева в глубину (результаты прогонов в консоли)</h4>
+<!--<h4>Обход дерева в глубину (результаты прогонов в консоли)</h4>-->
+<!--<pre>-->
+<!--<code style="display: block">-->
+<!--const traverseTree = (tree) => {-->
+<!--  const values = [];-->
+<!--  let stack = [tree];-->
+
+<!--  while(stack.length) {-->
+<!--    const workingNode = stack[stack.length - 1];-->
+<!--    values.push(workingNode.value);-->
+<!--    stack.pop();-->
+
+<!--    if (workingNode.next !== null && Array.isArray(workingNode.next)) {-->
+<!--      for (let i = workingNode.next.length - 1; i > -1; i&#45;&#45;) {-->
+<!--        stack.push(workingNode.next[i]);-->
+<!--      }-->
+<!--    }-->
+<!--  }-->
+
+<!--  return values;-->
+<!--}-->
+<!--</code>-->
+<!--</pre>-->
+
+<h4>Обход дерева в ширину (результаты прогонов в консоли)</h4>
 <pre>
 <code style="display: block">
-const traverseTree = (tree) => {
+const traverseTreeWidth = (tree) => {
   const values = [];
-  let stack = [tree];
+  let queue = [tree];
 
-  while(stack.length) {
-    const workingNode = stack[stack.length - 1];
+  while(queue.length) {
+    const workingNode = queue.shift();
     values.push(workingNode.value);
-    stack.pop();
 
     if (workingNode.next !== null && Array.isArray(workingNode.next)) {
-      for (let i = workingNode.next.length - 1; i > -1; i--) {
-        stack.push(workingNode.next[i]);
+      for (const child of workingNode.next) {
+        queue.push(child);
       }
     }
   }
@@ -171,18 +194,35 @@ const traverseTree = (tree) => {
     return arr;
   }
 
-  const traverseTree = (tree) => {
+  const traverseTreeDepth = (tree) => {
     const values = [];
     let stack = [tree];
 
     while(stack.length) {
-      const workingNode = stack[stack.length - 1];
+      const workingNode = stack.pop();
       values.push(workingNode.value);
-      stack.pop();
 
       if (workingNode.next !== null && Array.isArray(workingNode.next)) {
         for (let i = workingNode.next.length - 1; i > -1; i--) {
           stack.push(workingNode.next[i]);
+        }
+      }
+    }
+
+    return values;
+  }
+
+  const traverseTreeWidth = (tree) => {
+    const values = [];
+    let queue = [tree];
+
+    while(queue.length) {
+      const workingNode = queue.shift();
+      values.push(workingNode.value);
+
+      if (workingNode.next !== null && Array.isArray(workingNode.next)) {
+        for (const child of workingNode.next) {
+          queue.push(child);
         }
       }
     }
@@ -288,11 +328,11 @@ const traverseTree = (tree) => {
   }
 
   console.log(obj);
-  console.log(traverseTree(obj));
+  console.log(traverseTreeWidth(obj));
   console.log(obj2);
-  console.log(traverseTree(obj2));
+  console.log(traverseTreeWidth(obj2));
   console.log(emptyObj);
-  console.log(traverseTree(emptyObj));
+  console.log(traverseTreeWidth(emptyObj));
 </script>
 </body>
 </html>
